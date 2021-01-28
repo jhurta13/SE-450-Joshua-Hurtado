@@ -1,16 +1,14 @@
 package main;
 
 import view.interfaces.PaintCanvasBase;
-
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
 public class ClickHandler extends MouseAdapter {
-    private PaintCanvasBase canvas;
-    Point point1 = new Point(); //starting point
-    Point point2 = new Point(); //ending point
+    public PaintCanvasBase canvas;
+    PointCustom point1 = new PointCustom(); //starting point
+    PointCustom point2 = new PointCustom(); //ending point
     int width;
     int height;
 
@@ -44,18 +42,25 @@ public class ClickHandler extends MouseAdapter {
         width = Math.abs(point2.x - point1.x);
         height = Math.abs(point2.y - point1.y);
 
-        int x = (int) e.getX();
-        System.out.println(e.getX()+", "+e.getY());
-        Graphics2D graphics2D = canvas.getGraphics2D();
-        graphics2D.setColor(Color.blue);
-        graphics2D.fillRect( point1.x,point1.y,width,height);
+        //to do: filler pattern for setting shape attributes
+        Shape shape = new Shape() {
 
+           @Override
+            public void draw(PaintCanvasBase paintCanvasBase, PointCustom point1, PointCustom point2, int width, int height) {
+                super.draw(canvas,point1,point2,width,height);
+            }
+        };
+        //shape.draw(canvas,point1,point2,width,height);
 
-
+        ShapeList shapeList = new ShapeList();
+        shape.setPoint1(point1);
+        shape.setPoint2(point2);
+        shape.setWidth(width);
+        shape.setHeight(height);
+        shapeList.addShape(shape);
+        ShapeDrawer shapeDrawer = new ShapeDrawer(canvas,shapeList);
     }
-    public void dimensions(){
 
-    }
 
 
 }
