@@ -11,6 +11,7 @@ public class ClickHandler extends MouseAdapter {
     PointCustom point2 = new PointCustom(); //ending point
     int width;
     int height;
+    ShapeList shapeList = new ShapeList();
 
 
     public ClickHandler(PaintCanvasBase canvas) {
@@ -43,22 +44,11 @@ public class ClickHandler extends MouseAdapter {
         height = Math.abs(point2.y - point1.y);
 
         //to do: filler pattern for setting shape attributes
-        Shape shape = new Shape() {
-
-           @Override
-            public void draw(PaintCanvasBase paintCanvasBase, PointCustom point1, PointCustom point2, int width, int height) {
-                super.draw(canvas,point1,point2,width,height);
-            }
-        };
-        //shape.draw(canvas,point1,point2,width,height);
-
+        Shape shape = new Shape(canvas, point1, point2, width, height);
+        //shape.draw();
         ShapeList shapeList = new ShapeList();
-        shape.setPoint1(point1);
-        shape.setPoint2(point2);
-        shape.setWidth(width);
-        shape.setHeight(height);
         shapeList.addShape(shape);
-        ShapeDrawer shapeDrawer = new ShapeDrawer(canvas,shapeList);
+        ShapeFactory shapeFactory = new ShapeFactory(canvas,shapeList);
     }
 
 

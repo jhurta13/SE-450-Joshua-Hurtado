@@ -1,4 +1,7 @@
 package main;
+import view.interfaces.PaintCanvasBase;
+
+import java.util.List;
 import java.util.Stack;
 
 class CommandHistory {
@@ -17,6 +20,7 @@ class CommandHistory {
             redoStack.push(c);
             c.undo();
         }
+
         return result;
     }
 
