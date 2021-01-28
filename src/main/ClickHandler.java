@@ -43,10 +43,9 @@ public class ClickHandler extends MouseAdapter {
         width = Math.abs(point2.x - point1.x);
         height = Math.abs(point2.y - point1.y);
 
-        //to do: filler pattern for setting shape attributes
-        Shape shape = new Shape(canvas, point1, point2, width, height);
-        //shape.draw();
-        ShapeList shapeList = new ShapeList();
+        this.shapeList=shapeList;
+
+        Shape shape = new Shape(canvas, point1.x, point1.y, width, height);
         shapeList.addShape(shape);
         ShapeFactory shapeFactory = new ShapeFactory(canvas,shapeList);
     }

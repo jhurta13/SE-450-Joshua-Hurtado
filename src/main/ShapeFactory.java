@@ -12,11 +12,11 @@ public class ShapeFactory implements IUndoable, ICommand{
 
     public ShapeFactory(PaintCanvasBase canvasBase, ShapeList shapeList){
 
-        for (Shape s: shapeList.getList()){
+        for (Shape s: shapeList.shapeList){
             s.draw();
 
         }
-
+        System.out.println(shapeList.shapeList.size());
     }
 
     @Override
