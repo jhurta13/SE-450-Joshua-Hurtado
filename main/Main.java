@@ -12,6 +12,7 @@ import view.interfaces.IUiModule;
 
 
 public class Main {
+    public static ApplicationState applicationState;
     public static void main(String[] args){
         PaintCanvasBase paintCanvas = new PaintCanvas();
         paintCanvas.addMouseListener(new ClickHandler(paintCanvas));
@@ -19,10 +20,9 @@ public class Main {
         IGuiWindow guiWindow = new GuiWindow(paintCanvas);
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
+        applicationState=appState;
         IJPaintController controller = new JPaintController(uiModule, appState);
         controller.setup();
-
-
 
 
         try {

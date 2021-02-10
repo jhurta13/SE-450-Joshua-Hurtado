@@ -31,7 +31,6 @@ public class Rectangle implements IShape {
         Graphics2D graphics2D = paintCanvasBase.getGraphics2D();
        graphics2D.setColor(Color.green);
    graphics2D.fillRect(x, y, width, height);
-
     }
 
 

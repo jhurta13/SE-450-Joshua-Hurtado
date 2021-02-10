@@ -1,11 +1,9 @@
 package main;
-
+import model.ShapeType;
 import view.interfaces.PaintCanvasBase;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 
 public class ClickHandler extends MouseAdapter {
@@ -14,8 +12,12 @@ public class ClickHandler extends MouseAdapter {
     PointCustom point2 = new PointCustom(); //ending point
     public static int x;
     public static int y;
+    public static int y2;
+    public static int x2;
     public static int width;
     public static int height;
+    public static ShapeType shapeType;
+
 
     public ClickHandler(PaintCanvasBase canvas) {
         super();
@@ -28,7 +30,6 @@ public class ClickHandler extends MouseAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
 
-        System.out.println(e.getX()+", "+e.getY());
 
         point1.x = e.getX();
         point1.y = e.getY();
@@ -43,16 +44,25 @@ public class ClickHandler extends MouseAdapter {
 
         point2.x = e.getX();
         point2.y = e.getY();
+        y2 = e.getY();
+        x2 = e.getX();
 
         //width & height calculation
         width = Math.abs(point2.x - point1.x);
         height = Math.abs(point2.y - point1.y);
+
+        //extract shapetype
+        shapeType = Main.applicationState.getActiveShapeType();
 
         ShapeCustom shapeCustom = new ShapeCustom();
         shapeCustom.height = height;
         shapeCustom.width = width;
         shapeCustom.x = x;
         shapeCustom.y = y;
+        shapeCustom.y2 = y2;
+        shapeCustom.x2 = x2;
+        shapeCustom.shapeType=shapeType;
+
 
         //ShapeFactory shapeFactory = new ShapeFactory();
         //IShape shape = shapeFactory.GetShape(null);

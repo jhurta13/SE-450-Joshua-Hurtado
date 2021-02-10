@@ -2,9 +2,9 @@ package main;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Stack;
+
+import static model.ShapeType.*;
 
 public class AddShapeCommand implements ICommand,IUndoable {
 
@@ -24,9 +24,9 @@ public class AddShapeCommand implements ICommand,IUndoable {
     @Override
     public void run() throws IOException {
         shapeList.push(shape);
-        RectangleDrawer rectangleDrawer = new RectangleDrawer();
-        rectangleDrawer.draw();
-        CommandHistory.add(this);
+            RectangleDrawer rectangleDrawer = new RectangleDrawer();
+            rectangleDrawer.draw();
+            CommandHistory.add(this);
 
 
     }
