@@ -1,5 +1,7 @@
 package main;
 
+import model.ShapeColor;
+import model.ShapeShadingType;
 import model.ShapeType;
 import view.interfaces.PaintCanvasBase;
 
@@ -14,6 +16,9 @@ public class ShapeCustom {
     public int height;
     private PaintCanvasBase paintCanvasBase;
     public ShapeType shapeType;
+    public Color color;
+    public Color color2;
+    public ShapeShadingType shapeShadingType;
 
 
     public ShapeCustom ()
@@ -24,8 +29,7 @@ public class ShapeCustom {
         this.x2 = x2;
         this.width = width;
         this.height = height;
-
-
+        this.shapeShadingType = shapeShadingType;
 
 
     }
@@ -44,6 +48,10 @@ public class ShapeCustom {
         return height;
     }
     public ShapeType getShapeType() { return shapeType;}
+    public Color getColor(){return color;}
+    public Color getColor2(){return color2;}
+    public ShapeShadingType getShapeShadingType(){return shapeShadingType;}
+
 
 
 }
