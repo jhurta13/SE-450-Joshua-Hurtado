@@ -14,9 +14,10 @@ public class Rectangle implements IShape {
     private PaintCanvasBase paintCanvasBase;
 
 
-    public void Rectangle(){
+    public void Rectangle (){
 
     }
+
 
     @Override
     public void draw() {

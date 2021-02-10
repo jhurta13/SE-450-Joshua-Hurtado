@@ -48,12 +48,17 @@ public class ClickHandler extends MouseAdapter {
         width = Math.abs(point2.x - point1.x);
         height = Math.abs(point2.y - point1.y);
 
+        ShapeCustom shapeCustom = new ShapeCustom();
+        shapeCustom.height = height;
+        shapeCustom.width = width;
+        shapeCustom.x = x;
+        shapeCustom.y = y;
 
-        ShapeFactory shapeFactory = new ShapeFactory();
-        IShape shape = shapeFactory.GetShape(null);
+        //ShapeFactory shapeFactory = new ShapeFactory();
+        //IShape shape = shapeFactory.GetShape(null);
 
         ICommand command;
-        command = new AddShapeCommand(shape);
+        command = new AddShapeCommand(shapeCustom);
 
 
         try {
