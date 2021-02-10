@@ -1,5 +1,6 @@
 package controller;
 import main.ICommand;
+import main.RedoCommand;
 import main.UndoCommand;
 import model.interfaces.IApplicationState;
 import view.EventName;
@@ -32,8 +33,7 @@ public class JPaintController implements IJPaintController {
         IEventCallback callback = new IEventCallback() {
             @Override
             public void run() {
-                //add correct undo command
-                //add undo command to addshapecommand
+
                 ICommand cmd = new UndoCommand();
                 try {
                     cmd.run();
@@ -44,6 +44,21 @@ public class JPaintController implements IJPaintController {
         };
 
         uiModule.addEvent(EventName.UNDO,callback);
+
+        IEventCallback callback2 = new IEventCallback() {
+            @Override
+            public void run() {
+
+                ICommand cmd = new RedoCommand();
+                try {
+                    cmd.run();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        uiModule.addEvent(EventName.REDO,callback2);
 
 
     }

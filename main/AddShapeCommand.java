@@ -43,7 +43,12 @@ public class AddShapeCommand implements ICommand,IUndoable {
 
     @Override
     public void redo() {
-        shapeList.add(shape);
+        AddShapeCommand.shapeList.push(shape);
+        Graphics2D graphics2D = ClickHandler.canvas.getGraphics2D();
+        graphics2D.setColor(Color.white);
+        graphics2D.fillRect(0,0,ClickHandler.canvas.getWidth(),ClickHandler.canvas.getHeight());
+        rectangleDrawer.draw();
+
 
     }
 }
