@@ -1,4 +1,5 @@
 package main;
+import model.MouseMode;
 import model.ShapeColor;
 import model.ShapeShadingType;
 import model.ShapeType;
@@ -24,6 +25,9 @@ public class ClickHandler extends MouseAdapter {
     public static ShapeColor shapeColor;
     public static ShapeColor shapeColor2;
     public static ShapeShadingType shapeShading;
+    public static MouseMode mouseMode;
+    public static int detax;
+    public static int deltay;
 
 
     public ClickHandler(PaintCanvasBase canvas) {
@@ -61,6 +65,7 @@ public class ClickHandler extends MouseAdapter {
         shapeType = Main.applicationState.getActiveShapeType();
         shapeColor = Main.applicationState.getActivePrimaryColor();
         shapeColor2 = Main.applicationState.getActiveSecondaryColor();
+        mouseMode = Main.applicationState.getActiveMouseMode();
 
         GetShapeColor getShapeColor = new GetShapeColor();
         Color color = getShapeColor.GetShapeColor(shapeColor);
@@ -69,6 +74,9 @@ public class ClickHandler extends MouseAdapter {
         Color color2 = getShapeColor2.GetShapeColor(shapeColor2);
 
         shapeShading = Main.applicationState.getActiveShapeShadingType();
+        mouseMode = Main.applicationState.getActiveMouseMode();
+        int deltax = x2 - x;
+        int deltay = y2 - y;
 
         ShapeCustom shapeCustom = new ShapeCustom();
         shapeCustom.height = height;
@@ -81,20 +89,42 @@ public class ClickHandler extends MouseAdapter {
         shapeCustom.color = color;
         shapeCustom.color2 = color2;
         shapeCustom.shapeShadingType = shapeShading;
-
+        shapeCustom.mouseMode = mouseMode;
+        shapeCustom.deltax =deltax;
+        shapeCustom.deltay = deltay;
 
         //ShapeFactory shapeFactory = new ShapeFactory();
         //IShape shape = shapeFactory.GetShape(null);
 
         ICommand command;
-        command = new AddShapeCommand(shapeCustom);
+        if (mouseMode.equals(MouseMode.DRAW)){
+            command = new AddShapeCommand(shapeCustom);
+            try {
+                command.run();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
 
-
-        try {
-            command.run();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
         }
+        else if (mouseMode.equals(MouseMode.SELECT)){
+            command = new SelectCommand(shapeCustom);
+            try {
+                command.run();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+        else if (mouseMode.equals(MouseMode.MOVE)){
+            command = new MoveCommand(shapeCustom);
+            try {
+                command.run();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+
+
+
     }
 
 

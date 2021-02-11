@@ -1,5 +1,6 @@
 package main;
 
+import model.MouseMode;
 import model.ShapeColor;
 import model.ShapeShadingType;
 import model.ShapeType;
@@ -19,6 +20,9 @@ public class ShapeCustom {
     public Color color;
     public Color color2;
     public ShapeShadingType shapeShadingType;
+    public MouseMode mouseMode;
+    public int deltax;
+    public int deltay;
 
 
     public ShapeCustom ()
@@ -30,6 +34,9 @@ public class ShapeCustom {
         this.width = width;
         this.height = height;
         this.shapeShadingType = shapeShadingType;
+        this.mouseMode = mouseMode;
+        this.deltax = deltax;
+        this.deltay = deltay;
 
 
     }
@@ -51,6 +58,9 @@ public class ShapeCustom {
     public Color getColor(){return color;}
     public Color getColor2(){return color2;}
     public ShapeShadingType getShapeShadingType(){return shapeShadingType;}
+    public MouseMode getMouseMode(){return mouseMode;}
+    public int getDeltax(){return deltax;}
+    public int getDeltay(){return deltay;}
 
 
 
