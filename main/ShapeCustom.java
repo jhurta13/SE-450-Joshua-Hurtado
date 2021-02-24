@@ -7,8 +7,9 @@ import model.ShapeType;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
+import java.util.ArrayList;
 
-public class ShapeCustom {
+public class ShapeCustom implements Cloneable {
     public int x;
     public int y;
     public int x2;
@@ -25,7 +26,8 @@ public class ShapeCustom {
     public int deltay;
 
 
-    public ShapeCustom ()
+
+    public ShapeCustom  ()
     {
         this.x = x;
         this.y = y;
@@ -40,6 +42,7 @@ public class ShapeCustom {
 
 
     }
+
     public int getY(){
         return y;
     }
@@ -61,6 +64,10 @@ public class ShapeCustom {
     public MouseMode getMouseMode(){return mouseMode;}
     public int getDeltax(){return deltax;}
     public int getDeltay(){return deltay;}
+    @Override protected ShapeCustom clone() throws CloneNotSupportedException {
+        return (ShapeCustom) super.clone();
+    }
+
 
 
 

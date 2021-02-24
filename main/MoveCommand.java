@@ -20,7 +20,7 @@ public class MoveCommand implements ICommand,IUndoable {
     RectangleDrawer rectangleDrawer = new RectangleDrawer();
 
 
-    MoveCommand(ShapeCustom shape){
+    public MoveCommand(ShapeCustom shape){
         this.shape = shape;
     }
 

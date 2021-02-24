@@ -1,7 +1,5 @@
 package controller;
-import main.ICommand;
-import main.RedoCommand;
-import main.UndoCommand;
+import main.*;
 import model.interfaces.IApplicationState;
 import view.EventName;
 import view.interfaces.IEventCallback;
@@ -37,7 +35,7 @@ public class JPaintController implements IJPaintController {
                 ICommand cmd = new UndoCommand();
                 try {
                     cmd.run();
-                } catch (IOException e) {
+                } catch (IOException | CloneNotSupportedException e) {
                     e.printStackTrace();
                 }
             }
@@ -52,13 +50,53 @@ public class JPaintController implements IJPaintController {
                 ICommand cmd = new RedoCommand();
                 try {
                     cmd.run();
-                } catch (IOException e) {
+                } catch (IOException | CloneNotSupportedException e) {
                     e.printStackTrace();
                 }
             }
         };
 
         uiModule.addEvent(EventName.REDO,callback2);
+
+        IEventCallback callback3 = new IEventCallback() {
+            @Override
+            public void run() {
+                ICommand cmd = new CopyCommand();
+                try {
+                    cmd.run();
+                } catch (IOException | CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        uiModule.addEvent(EventName.COPY,callback3);
+
+        IEventCallback callback4 = new IEventCallback() {
+            @Override
+            public void run() {
+                ICommand cmd = new PasteCommand();
+                try {
+                    cmd.run();
+                } catch (IOException | CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        uiModule.addEvent(EventName.PASTE,callback4);
+
+        IEventCallback callback5 = new IEventCallback() {
+            @Override
+            public void run() {
+                ICommand cmd = new DeleteCommand();
+                try {
+                    cmd.run();
+                } catch (IOException | CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        uiModule.addEvent(EventName.DELETE,callback5);
+
 
 
     }

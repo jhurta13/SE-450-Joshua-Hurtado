@@ -4,8 +4,6 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Stack;
 
-import static model.ShapeType.*;
-
 public class AddShapeCommand implements ICommand,IUndoable {
 
     public static Stack<ShapeCustom> shapeList = new Stack<>();
@@ -13,7 +11,7 @@ public class AddShapeCommand implements ICommand,IUndoable {
 
 
 
-    RectangleDrawer rectangleDrawer = new RectangleDrawer();
+    RectangleDrawer drawer = new RectangleDrawer();
 
 
     AddShapeCommand(ShapeCustom shape){
@@ -37,7 +35,7 @@ public class AddShapeCommand implements ICommand,IUndoable {
         Graphics2D graphics2D = ClickHandler.canvas.getGraphics2D();
         graphics2D.setColor(Color.white);
         graphics2D.fillRect(0,0,ClickHandler.canvas.getWidth(),ClickHandler.canvas.getHeight());
-        rectangleDrawer.draw();
+        drawer.draw();
 
     }
 
@@ -47,7 +45,7 @@ public class AddShapeCommand implements ICommand,IUndoable {
         Graphics2D graphics2D = ClickHandler.canvas.getGraphics2D();
         graphics2D.setColor(Color.white);
         graphics2D.fillRect(0,0,ClickHandler.canvas.getWidth(),ClickHandler.canvas.getHeight());
-        rectangleDrawer.draw();
+        drawer.draw();
 
 
     }

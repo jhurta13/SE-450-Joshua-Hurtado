@@ -3,6 +3,7 @@ import model.MouseMode;
 import model.ShapeColor;
 import model.ShapeShadingType;
 import model.ShapeType;
+import view.EventName;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
@@ -93,15 +94,13 @@ public class ClickHandler extends MouseAdapter {
         shapeCustom.deltax =deltax;
         shapeCustom.deltay = deltay;
 
-        //ShapeFactory shapeFactory = new ShapeFactory();
-        //IShape shape = shapeFactory.GetShape(null);
 
         ICommand command;
         if (mouseMode.equals(MouseMode.DRAW)){
             command = new AddShapeCommand(shapeCustom);
             try {
                 command.run();
-            } catch (IOException ioException) {
+            } catch (IOException | CloneNotSupportedException ioException) {
                 ioException.printStackTrace();
             }
 
@@ -110,7 +109,7 @@ public class ClickHandler extends MouseAdapter {
             command = new SelectCommand(shapeCustom);
             try {
                 command.run();
-            } catch (IOException ioException) {
+            } catch (IOException | CloneNotSupportedException ioException) {
                 ioException.printStackTrace();
             }
         }
@@ -118,7 +117,15 @@ public class ClickHandler extends MouseAdapter {
             command = new MoveCommand(shapeCustom);
             try {
                 command.run();
-            } catch (IOException ioException) {
+            } catch (IOException | CloneNotSupportedException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+        else if (mouseMode.equals(MouseMode.MOVE)){
+            command = new MoveCommand(shapeCustom);
+            try {
+                command.run();
+            } catch (IOException | CloneNotSupportedException ioException) {
                 ioException.printStackTrace();
             }
         }
