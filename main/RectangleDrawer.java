@@ -1,7 +1,3 @@
-/*
-Rename to ShapeDrawer, since this class implements all shapes
- */
-
 package main;
 
 import model.ShapeShadingType;
@@ -114,7 +110,6 @@ public class RectangleDrawer implements IShapeDrawer{
                 }
             }
         }
-        System.out.println(AddShapeCommand.shapeList.size());
     }
 
 }

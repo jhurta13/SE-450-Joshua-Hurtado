@@ -44,7 +44,6 @@ public class SelectCommand implements ICommand,IUndoable {
         for (ShapeCustom s: OutlineList){
             outlineDrawer.draw();
         }
-        System.out.println(SelectShapeList.size());
 
 
 

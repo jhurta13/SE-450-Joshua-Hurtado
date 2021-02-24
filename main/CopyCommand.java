@@ -33,7 +33,6 @@ public class CopyCommand implements ICommand,IUndoable {
 
         }
 
-        System.out.println("Copied" + Clipboard.size());
 
         CommandHistory.add(this);
 

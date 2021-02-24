@@ -12,7 +12,7 @@ import java.awt.*;
 
 import static model.ShapeType.*;
 
-public class OutlineDrawer implements IShapeDrawer{
+public class OutlineDrawer extends ShapeDecorator{
     public PaintCanvasBase paintCanvasBase;
     public int x;
     public int y;
