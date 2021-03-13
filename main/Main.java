@@ -1,3 +1,6 @@
+//Select Class used for all cases
+//ShapeList replaced with
+
 package main;
 
 import controller.IJPaintController;

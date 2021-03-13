@@ -4,6 +4,7 @@ import model.ShapeType;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Stack;
 
 
@@ -18,6 +19,7 @@ public class MoveCommand implements ICommand,IUndoable {
 
 
     RectangleDrawer rectangleDrawer = new RectangleDrawer();
+    GroupDrawer groupDrawer = new GroupDrawer();
 
 
     public MoveCommand(ShapeCustom shape){
@@ -27,22 +29,25 @@ public class MoveCommand implements ICommand,IUndoable {
 
     @Override
     public void run() throws IOException {
-        for (ShapeCustom s: SelectCommand.SelectShapeList){
+        for (ArrayList<ShapeCustom> g: SelectCommand.selectGroupslist){
+            for(ShapeCustom s: g){
+                if (!s.shapeType.equals(ShapeType.TRIANGLE)){
+                    s.x = s.x + shape.getDeltax();
+                    s.y = s.y +shape.getDeltay();
+
+                }
+                else if(s.shapeType.equals(ShapeType.TRIANGLE)){
+                    s.x = s.x +shape.getDeltax();
+                    s.y = s.y +shape.getDeltay();
+                    s.x2 = s.x2 + shape.getDeltax();
+                    s.y2 = s.y2 + shape.getDeltay();
+                }
+            }
+            }
             //implement
-            if (!s.shapeType.equals(ShapeType.TRIANGLE)){
-                s.x = s.x + shape.getDeltax();
-                s.y = s.y +shape.getDeltay();
 
-            }
-            else if(s.shapeType.equals(ShapeType.TRIANGLE)){
-                s.x = s.x +shape.getDeltax();
-                s.y = s.y +shape.getDeltay();
-                s.x2 = s.x2 + shape.getDeltax();
-                s.y2 = s.y2 + shape.getDeltay();
-            }
-        }
-        rectangleDrawer.draw();
-
+        //rectangleDrawer.draw();
+        groupDrawer.draw();
         CommandHistory.add(this);
 
 
@@ -51,42 +56,51 @@ public class MoveCommand implements ICommand,IUndoable {
     @Override
     public void undo() {
 
-        for (ShapeCustom s: SelectCommand.SelectShapeList){
-            //implement
-            if (!s.shapeType.equals(ShapeType.TRIANGLE)){
-                s.x = s.x + -1*shape.getDeltax();
-                s.y = s.y +-1*shape.getDeltay();
+        for (ArrayList<ShapeCustom> g: SelectCommand.selectGroupslist){
+            for(ShapeCustom s:g){
+                if (!s.shapeType.equals(ShapeType.TRIANGLE)){
+                    s.x = s.x + -1*shape.getDeltax();
+                    s.y = s.y +-1*shape.getDeltay();
+
+                }
+                else if(s.shapeType.equals(ShapeType.TRIANGLE)){
+                    s.x = s.x +-1*shape.getDeltax();
+                    s.y = s.y +-1*shape.getDeltay();
+                    s.x2 = s.x2 + -1*shape.getDeltax();
+                    s.y2 = s.y2 + -1*shape.getDeltay();
+                }
 
             }
-            else if(s.shapeType.equals(ShapeType.TRIANGLE)){
-                s.x = s.x +-1*shape.getDeltax();
-                s.y = s.y +-1*shape.getDeltay();
-                s.x2 = s.x2 + -1*shape.getDeltax();
-                s.y2 = s.y2 + -1*shape.getDeltay();
-            }
+            //implement
+
         }
-        rectangleDrawer.draw();
+        //rectangleDrawer.draw();
+        groupDrawer.draw();
 
 
     }
 
     @Override
     public void redo() {
-        for (ShapeCustom s: SelectCommand.SelectShapeList){
-            //implement
-            if (!s.shapeType.equals(ShapeType.TRIANGLE)){
-                s.x = s.x + shape.getDeltax();
-                s.y = s.y +shape.getDeltay();
+        for (ArrayList<ShapeCustom> g: SelectCommand.selectGroupslist){
+            for (ShapeCustom s: g){
+                if (!s.shapeType.equals(ShapeType.TRIANGLE)){
+                    s.x = s.x + shape.getDeltax();
+                    s.y = s.y +shape.getDeltay();
 
+                }
+                else if(s.shapeType.equals(ShapeType.TRIANGLE)){
+                    s.x = s.x +shape.getDeltax();
+                    s.y = s.y +shape.getDeltay();
+                    s.x2 = s.x2 + shape.getDeltax();
+                    s.y2 = s.y2 + shape.getDeltay();
+                }
             }
-            else if(s.shapeType.equals(ShapeType.TRIANGLE)){
-                s.x = s.x +shape.getDeltax();
-                s.y = s.y +shape.getDeltay();
-                s.x2 = s.x2 + shape.getDeltax();
-                s.y2 = s.y2 + shape.getDeltay();
             }
-        }
-        rectangleDrawer.draw();
+            //implement
+
+        //rectangleDrawer.draw();
+        groupDrawer.draw();
 
 
     }

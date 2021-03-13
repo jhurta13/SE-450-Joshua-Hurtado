@@ -53,7 +53,6 @@ public class ClickHandler extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
         point2.x = e.getX();
         point2.y = e.getY();
         y2 = e.getY();
@@ -107,14 +106,6 @@ public class ClickHandler extends MouseAdapter {
         }
         else if (mouseMode.equals(MouseMode.SELECT)){
             command = new SelectCommand(shapeCustom);
-            try {
-                command.run();
-            } catch (IOException | CloneNotSupportedException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-        else if (mouseMode.equals(MouseMode.MOVE)){
-            command = new MoveCommand(shapeCustom);
             try {
                 command.run();
             } catch (IOException | CloneNotSupportedException ioException) {

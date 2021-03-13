@@ -1,17 +1,11 @@
 package main;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.Stack;
-import java.util.StringJoiner;
+import java.util.ArrayList;
 
-import static model.ShapeType.TRIANGLE;
 
 
 public class SelectCommand implements ICommand,IUndoable {
-
-    public static Stack<ShapeCustom> SelectShapeList = new Stack<>();
-    public static Stack<ShapeCustom> OutlineList = new Stack<>();
 
 
     private ShapeCustom shape;
@@ -19,7 +13,17 @@ public class SelectCommand implements ICommand,IUndoable {
 
 
     OutlineDrawer outlineDrawer = new OutlineDrawer();
-    RectangleDrawer rectangleDrawer = new RectangleDrawer();
+    GroupOutlineDrawer groupOutlineDrawer = new GroupOutlineDrawer();
+    GroupDrawer groupDrawer = new GroupDrawer();
+
+    public static ArrayList<ArrayList<ShapeCustom>> selectGroupslist = new ArrayList<ArrayList<ShapeCustom>>();
+
+    public static ArrayList<ArrayList<ShapeCustom>> groupOutlinelist = new ArrayList<ArrayList<ShapeCustom>>();
+
+    //for group outlines
+    public static ArrayList<ArrayList<ShapeCustom>> groupOutlinelist2 = new ArrayList<ArrayList<ShapeCustom>>();
+    public static ArrayList<ArrayList<ShapeCustom>> selectGroupslist2 = new ArrayList<ArrayList<ShapeCustom>>();
+
 
 
 
@@ -30,20 +34,66 @@ public class SelectCommand implements ICommand,IUndoable {
 
     @Override
     public void run() throws IOException, CloneNotSupportedException {
-        OutlineList.clear();
-        SelectShapeList.clear();
-        rectangleDrawer.draw();
-        for (ShapeCustom s: AddShapeCommand.shapeList){
-            if(shape.x < s.x2 && shape.x2 > s.x && shape.y < s.y2 && shape.y2>s.y){
-                SelectShapeList.push(s);
+
+        selectGroupslist.clear();
+        groupOutlinelist.clear();
+        groupOutlinelist2.clear();
+        selectGroupslist2.clear();
+
+
+        groupDrawer.draw();
+        ArrayList <Object> tempList = new ArrayList<>();
+
+        //create Temp List to hold the shapes that are part of groups
+        for ( ArrayList g:  GroupCommand.groupslist){
+            for (Object s: g){
+                if(g.size()>1){
+                    tempList.add(s);
+
+                }
             }
         }
-        for (ShapeCustom s: SelectShapeList){
-            OutlineList.push(s);
+
+        for (ArrayList<ShapeCustom> g : GroupCommand.groupslist) {
+
+                if(g.size()>1) {
+                    for(ShapeCustom s : g){
+                        if(shape.x < s.x2 && shape.x2 > s.x && shape.y < s.y2 && shape.y2 > s.y){
+                            selectGroupslist2.add(g);
+
+                    }
+
+
+                    }
+                }
+                else if (g.size()==1){
+                    for(ShapeCustom s : g){
+                        //if templist does not contain any shape
+                        if (!tempList.contains(s)){
+                            if (shape.x < s.x2 && shape.x2 > s.x && shape.y < s.y2 && shape.y2 > s.y) {
+                                ArrayList<ShapeCustom> group = new ArrayList<>();
+                                group.add(s);
+                                selectGroupslist.add(group);
+
+                            }
+                        }else {
+                            selectGroupslist.add(g);
+                        }
+
+                }
         }
-        for (ShapeCustom s: OutlineList){
-            outlineDrawer.draw();
+    }
+        for(ArrayList<ShapeCustom> g :selectGroupslist){
+                groupOutlinelist.add(g);
+
         }
+        for(ArrayList<ShapeCustom> g :selectGroupslist2){
+            groupOutlinelist2.add(g);
+
+        }
+
+        outlineDrawer.draw();
+        groupOutlineDrawer.draw();
 
 
 
@@ -60,3 +110,5 @@ public class SelectCommand implements ICommand,IUndoable {
 
     }
 }
+//if shape already in groupList, then, do not add
+//add everything with more than one shape, then, if not in list already, add the rest

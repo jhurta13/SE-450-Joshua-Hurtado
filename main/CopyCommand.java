@@ -4,6 +4,7 @@ import model.ShapeType;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Stack;
 
 
@@ -27,9 +28,12 @@ public class CopyCommand implements ICommand,IUndoable {
     @Override
     public void run() throws IOException {
 
-        for (ShapeCustom s: SelectCommand.SelectShapeList){
+        for (ArrayList<ShapeCustom> g: SelectCommand.selectGroupslist){
+            for(ShapeCustom s:g){
+                Clipboard.push(s);
 
-            Clipboard.push(s);
+            }
+
 
         }
 

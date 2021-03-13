@@ -97,6 +97,34 @@ public class JPaintController implements IJPaintController {
         };
         uiModule.addEvent(EventName.DELETE,callback5);
 
+        IEventCallback callback6 = new IEventCallback() {
+
+            @Override
+        public void run() {
+            ICommand cmd = new GroupCommand();
+            try {
+                cmd.run();
+            } catch (IOException | CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+        uiModule.addEvent(EventName.GROUP,callback6);
+
+        IEventCallback callback7 = new IEventCallback() {
+
+            @Override
+            public void run() {
+                ICommand cmd = new UngroupCommand();
+                try {
+                    cmd.run();
+                } catch (IOException | CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        uiModule.addEvent(EventName.UNGROUP,callback7);
+
 
 
     }

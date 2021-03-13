@@ -4,12 +4,15 @@ import model.ShapeType;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Stack;
 
 
 public class DeleteCommand implements ICommand,IUndoable {
 
     public static Stack<ShapeCustom> Clipboard = new Stack<>();
+    public static Stack<ShapeCustom> deleteList = new Stack<>();
+
 
     private ShapeCustom shape;
     public int deltax;
@@ -27,9 +30,13 @@ public class DeleteCommand implements ICommand,IUndoable {
     @Override
     public void run() throws IOException {
 
-        for (ShapeCustom s: SelectCommand.SelectShapeList){
-            this.s = s;
-            AddShapeCommand.shapeList.pop();
+
+        for (ArrayList<ShapeCustom> g: SelectCommand.selectGroupslist){
+            for(ShapeCustom s : g){
+                this.s = s;
+                deleteList.add(s);
+                AddShapeCommand.shapeList.remove(s);
+            }
 
         }
         rectangleDrawer.draw();
@@ -40,8 +47,10 @@ public class DeleteCommand implements ICommand,IUndoable {
 
     @Override
     public void undo() {
-
-        AddShapeCommand.shapeList.push(s);
+        for (ShapeCustom s: deleteList){
+            this.s = s;
+            AddShapeCommand.shapeList.add(s);
+        }
         rectangleDrawer.draw();
 
 
@@ -51,7 +60,10 @@ public class DeleteCommand implements ICommand,IUndoable {
     @Override
     public void redo() {
 
-        AddShapeCommand.shapeList.pop();
+        for (ShapeCustom s: deleteList){
+            this.s = s;
+            AddShapeCommand.shapeList.remove(s);
+        }
         rectangleDrawer.draw();
 
     }
